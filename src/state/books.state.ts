@@ -39,7 +39,7 @@ export class BooksState {
     { payload }: AddBook
   ): Observable<Book> {
     return this.bookSvc.addBook(payload).pipe(
-      tap((book) => {
+      tap((book: Book) => {
         const state = getState();
         patchState({
           // books: [...state.books, book],
@@ -53,9 +53,9 @@ export class BooksState {
   getBook({
     getState,
     setState,
-  }: StateContext<BooksStateModel>): Observable<any> {
+  }: StateContext<BooksStateModel>): Observable<Book[]> {
     return this.bookSvc.getBooks().pipe(
-      tap((books) => {
+      tap((books: Book[]) => {
         const state = getState();
         setState({ ...state, books });
       })
@@ -66,9 +66,9 @@ export class BooksState {
   updateBook(
     { getState, setState }: StateContext<BooksStateModel>,
     { payload }: UpdateBook
-  ): Observable<any> {
+  ): Observable<Book[]> {
     return this.bookSvc.updateBook(payload).pipe(
-      tap((books) => {
+      tap((books: Book[]) => {
         const state = getState();
         setState({ ...state, books });
       })
@@ -79,9 +79,9 @@ export class BooksState {
   deleteBook(
     { getState, patchState }: StateContext<BooksStateModel>,
     { id }: DeleteBook
-  ): Observable<any> {
+  ): Observable<Book[]> {
     return this.bookSvc.deleteBook(id).pipe(
-      tap((books) => {
+      tap((books: Book[]) => {
         const state = getState();
         patchState({ ...state.books, books });
       })
