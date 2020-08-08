@@ -1,10 +1,11 @@
-import { BooksService } from './../app/shared/books.service';
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { AddBook, GetBooks, UpdateBook, DeleteBook } from './books.actions';
-import { Book } from './../app/shared/books.interface';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
+import { AddBook, GetBooks, UpdateBook, DeleteBook } from './books.actions';
+import { BooksService } from './../app/shared/books.service';
+import { Book } from './../app/shared/book.interface';
 
 export class BooksStateModel {
   public books: Book[];
