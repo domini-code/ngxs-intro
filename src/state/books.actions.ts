@@ -1,10 +1,10 @@
-import { Book } from '../app/shared/book.interface';
+import { Book } from '../app/shared/books.interface';
 
 export class AddBook {
   static readonly type = '[Books] Add';
   constructor(public payload: Book) {}
 }
-export class GetBook {
+export class GetBooks {
   static readonly type = '[Books] Get';
 }
 export class UpdateBook {

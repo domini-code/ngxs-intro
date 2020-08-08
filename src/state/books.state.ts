@@ -1,7 +1,10 @@
+import { BooksService } from './../app/shared/books.service';
 import { Injectable } from '@angular/core';
-import { State, Action, StateContext } from '@ngxs/store';
-import { AddBook, GetBook, UpdateBook, DeleteBook } from './books.actions';
-import { Book } from 'src/app/shared/book.interface';
+import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { AddBook, GetBooks, UpdateBook, DeleteBook } from './books.actions';
+import { Book } from './../app/shared/books.interface';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 export class BooksStateModel {
   public books: Book[];
@@ -17,15 +20,34 @@ export class BooksStateModel {
 })
 @Injectable()
 export class BooksState {
-  @Action(AddBook)
-  addBook(
-    { getState, setState }: StateContext<BooksStateModel>,
-    { payload }: AddBook
-  ): void {
-    const state = getState();
+  constructor(private readonly bookSvc: BooksService) {}
+
+  @Selector()
+  public static getBookList({ books }: BooksStateModel): Book[] {
+    return books;
   }
 
-  @Action(GetBook)
+  @Selector()
+  public static getSelectedBook({ selectedBook }): Book {
+    return selectedBook;
+  }
+
+  @Action(AddBook)
+  addBook(
+    { getState, patchState }: StateContext<BooksStateModel>,
+    { payload }: AddBook
+  ): Observable<any> {
+    return this.bookSvc.addBook(payload).pipe(
+      tap((book) => {
+        const state = getState();
+        patchState({
+          books: [...state.books, book],
+        });
+      })
+    );
+  }
+
+  @Action(GetBooks)
   getBook({ getState, setState }: StateContext<BooksStateModel>): void {
     const state = getState();
   }
