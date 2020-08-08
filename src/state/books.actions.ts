@@ -13,5 +13,5 @@ export class UpdateBook {
 }
 export class DeleteBook {
   static readonly type = '[Books] Delete';
-  constructor(public id: string) {}
+  constructor(public id: number) {}
 }

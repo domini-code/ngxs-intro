@@ -1,5 +1,33 @@
-<ul *ngFor="let book of books$ | async">
-  <li>{{ book.id }} - {{ book.name }}</li>
-</ul>
-
-<button class="btn btn-lg" (click)="addNew()">Add new</button>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>List</h1>
+      <ul class="list-group" *ngFor="let book of books$ | async">
+        <li class="list-group-item">{{ book.id }} - {{ book.name }}</li>
+      </ul>
+      <div class="btn-group">
+        <button
+          type="button"
+          class="btn btn-primary mt-5 mr-1"
+          (click)="onAddNew()"
+        >
+          Add Book
+        </button>
+        <button
+          type="button"
+          class="btn btn-info mt-5 mr-1"
+          (click)="onUpdateBook()"
+        >
+          Update Book
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger mt-5"
+          (click)="onDeleteBook()"
+        >
+          Delete Book
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -66,15 +66,25 @@ export class BooksState {
   updateBook(
     { getState, setState }: StateContext<BooksStateModel>,
     { payload }: UpdateBook
-  ): void {
-    const state = getState();
+  ): Observable<any> {
+    return this.bookSvc.updateBook(payload).pipe(
+      tap((books) => {
+        const state = getState();
+        setState({ ...state, books });
+      })
+    );
   }
 
   @Action(DeleteBook)
   deleteBook(
-    { getState, setState }: StateContext<BooksStateModel>,
+    { getState, patchState }: StateContext<BooksStateModel>,
     { id }: DeleteBook
-  ): void {
-    const state = getState();
+  ): Observable<any> {
+    return this.bookSvc.deleteBook(id).pipe(
+      tap((books) => {
+        const state = getState();
+        patchState({ ...state.books, books });
+      })
+    );
   }
 }

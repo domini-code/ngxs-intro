@@ -25,11 +25,12 @@ export class BooksService {
     return of(this.books);
   }
 
-  updateBook(book: Book): Observable<Book> {
+  updateBook(book: Book): Observable<Book[]> {
     const { id } = book;
     this.books = this.books.filter((item) => item.id !== id);
     this.books.push(book);
-    return of(book);
+    console.log(this.books);
+    return of(this.books);
   }
 
   deleteBook(id: number): Observable<Book[]> {
