@@ -1,27 +1,48 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
-import { BooksAction } from './books.actions';
+import { AddBook, GetBook, UpdateBook, DeleteBook } from './books.actions';
+import { Book } from 'src/app/shared/book.interface';
 
 export class BooksStateModel {
-  public items: string[];
+  public books: Book[];
+  public selectedBook: Book;
 }
-
-const defaults = {
-  items: [],
-};
 
 @State<BooksStateModel>({
   name: 'books',
-  defaults,
+  defaults: {
+    books: [],
+    selectedBook: null,
+  },
 })
 @Injectable()
 export class BooksState {
-  @Action(BooksAction)
-  add(
+  @Action(AddBook)
+  addBook(
     { getState, setState }: StateContext<BooksStateModel>,
-    { payload }: BooksAction
+    { payload }: AddBook
   ): void {
     const state = getState();
-    setState({ items: [...state.items, payload] });
+  }
+
+  @Action(GetBook)
+  getBook({ getState, setState }: StateContext<BooksStateModel>): void {
+    const state = getState();
+  }
+
+  @Action(UpdateBook)
+  updateBook(
+    { getState, setState }: StateContext<BooksStateModel>,
+    { payload }: UpdateBook
+  ): void {
+    const state = getState();
+  }
+
+  @Action(DeleteBook)
+  deleteBook(
+    { getState, setState }: StateContext<BooksStateModel>,
+    { id }: DeleteBook
+  ): void {
+    const state = getState();
   }
 }
