@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, from, of } from 'rxjs';
-import { Book } from './books.interface';
+import { Observable, of } from 'rxjs';
+import { Book } from './book.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +21,8 @@ export class BooksService {
     return of(book);
   }
 
-  getBooks(): Observable<Book> {
-    return from(this.books);
+  getBooks(): Observable<Book[]> {
+    return of(this.books);
   }
 
   updateBook(book: Book): Observable<Book> {
@@ -32,8 +32,8 @@ export class BooksService {
     return of(book);
   }
 
-  deleteBook(id: number): Observable<Book> {
+  deleteBook(id: number): Observable<Book[]> {
     this.books = this.books.filter((item) => item.id !== id);
-    return from(this.books);
+    return of(this.books);
   }
 }

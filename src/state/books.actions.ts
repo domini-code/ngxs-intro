@@ -1,4 +1,4 @@
-import { Book } from '../app/shared/books.interface';
+import { Book } from '../app/shared/book.interface';
 
 export class AddBook {
   static readonly type = '[Books] Add';
