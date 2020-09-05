@@ -7,8 +7,9 @@ import { NgxsModule } from '@ngxs/store';
 import { BooksState } from './../state/books.state';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { HeaderComponent } from './shared/header/header.component';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     NgxsModule.forRoot([BooksState], {
